@@ -23,14 +23,18 @@ Compile project using maven:
 Usage
 -----
 
-    {hadoop jar|java -jar} target/sequencefile-utility-1.0-jar-with-dependencies.jar [-c <arg>] [-d <arg>] [-e <arg>] [-h] [-m] [-n <arg>] [-p <arg>] [-t]
+    {hadoop jar|java -jar} target/sequencefile-utility-1.0-jar-with-dependencies.jar 
+    [-c <arg>] [-d <arg>] [-e <arg>] [-h] [-m] [-n <arg>] [-p <arg>] [-t]
  
--c,--compr <arg>   Compression, one of NONE,RECORD,BLOCK, default: BLOCK
-                    (Optional).
- -d,--dir <arg>     Local directory (or directories - commaseparated)
-                    containing files to be added. Note that in hadoop map
-                    mode (parameter -m) each tasktracker must be able to
-                    access the files at the same path. (Required)
+
+| Short option   | Long option       | Description        |
+| -------------- | ----------------- | -----:|
+| -c <arg>      | --compr <arg> | Compression, one of NONE,RECORD,BLOCK, default: BLOCK |
+| -d <arg>      | --dir <arg>      |   Local directory (or directories - commaseparated) containing files to be added. Note that in hadoop map mode (parameter -m) each tasktracker must be able to access the files at the same path. (Required) |
+| -e <arg>  | --ext <arg>       |    $1 |
+
+,   
+      
  -e,--ext <arg>     Extension filter(s) - commaseparated (Optional).
  -h,--help          print this message.
  -m,--mapmode       Hadoop map mode: A text file containing all absolute
