@@ -28,31 +28,32 @@ Usage
  
 * `-c,--compr <arg>`
     * Compression, one of NONE,RECORD,BLOCK, default: BLOCK (Optional).
-* -d,--dir <arg>     
+* `-d,--dir <arg>`     
     * Local directory (or directories - commaseparated)
-        containing files to be added. Note that in hadoop map
-        mode (parameter -m) each tasktracker must be able to
-        access the files at the same path. (Required)
-* -e,--ext <arg>     
+      containing files to be added. Note that in hadoop map
+      mode (parameter -m) each tasktracker must be able to
+      access the files at the same path. (Required)
+* `-e,--ext <arg>`     
     * Extension filter(s) - commaseparated (Optional).
-* -h,--help          print this message.
-* -m,--mapmode       
+* `-h,--help`          
+    * Print this message.
+* `-m,--mapmode`       
     * Hadoop map mode: A text file containing all absolute
-                    paths of the input directory (parameter -d) is created
-                    and the sequence file is created using a map/reduce
-                    job. The sequence file is direcly stored in HDFS. If
-                    this parameter is omitted, the sequence file creation
-                    runs as a batch process, adding all files of a
-                    directory to a sequence file (one per directory) in a
-                    separate thread. (Optional)
-* -n,--name <arg>    
+      paths of the input directory (parameter -d) is created
+      and the sequence file is created using a map/reduce
+      job. The sequence file is direcly stored in HDFS. If
+      this parameter is omitted, the sequence file creation
+      runs as a batch process, adding all files of a
+      directory to a sequence file (one per directory) in a
+      separate thread. (Optional)
+* `-n,--name <arg>`    
     * Hadoop map mode: Hadoop job name (Optional)
-* -p,--path <arg>    
+* `-p,--path <arg>`    
     * Hadoop map mode: HDFS input path where the text files
-                    containing input paths is available. If this parameter
-                    is provided, the -d parameter is not required
-                    (Optional)
-* -t,--textline      
+      containing input paths is available. If this parameter
+      is provided, the -d parameter is not required
+      (Optional)
+* `-t,--textline`      
     * Text line mode, input files aretext files and each
-                    line of the text files should be added as a record in
-                    the sequence file (Optional).
+      line of the text files should be added as a record in
+      the sequence file (Optional).
