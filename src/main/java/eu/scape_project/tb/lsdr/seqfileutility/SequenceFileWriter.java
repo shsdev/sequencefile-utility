@@ -136,16 +136,24 @@ public final class SequenceFileWriter implements Runnable, Serializable {
     }
 
     private void writeFileContent(File file) throws IOException {
-        Text key = new Text();
-        String filePath = file.getAbsolutePath();
-        String keyPath = FilenameUtils.separatorsToUnix(filePath);
-        key.set(keyPath);
-        byte[] buffer;
-        buffer = FileUtils.readFileToByteArray(file.getAbsolutePath());
-        BytesWritable value = new BytesWritable(buffer);
-        filecount++;
-        logger.info(this.getId() + ": " + filecount + ":" + key);
-        writer.append(key, value);
+        long fileLength = file.length();
+        if (fileLength <= Integer.MAX_VALUE) {
+            Text key = new Text();
+            String filePath = file.getAbsolutePath();
+            String keyPath = FilenameUtils.separatorsToUnix(filePath);
+            key.set(keyPath);
+            byte[] buffer;
+            buffer = FileUtils.readFileToByteArray(file.getAbsolutePath());
+            BytesWritable value = new BytesWritable(buffer);
+            int len = (int) fileLength;
+            value.setSize(len);
+            filecount++;
+            logger.info(this.getId() + ": " + filecount + ":" + key);
+            writer.append(key, value);
+        } else {
+            logger.warn("File " + file.getAbsolutePath() + " is too large to be "
+                    + "added to a sequence file (skipped).");
+        }
     }
 
     public long getFilecount() {
