@@ -36,7 +36,8 @@ public class Options {
     public static final String HELP_OPT_DESC = "print this message.";
     public static final String HADOOPMAPMODE_FLG = "m";
     public static final String HADOOPMAPMODE_OPT = "mapmode";
-    public static final String HADOOPMAPMODE_OPT_DESC = "Hadoop map mode: A text "
+    public static final String HADOOPMAPMODE_OPT_DESC = "Hadoop map mode, "
+            + "application must be started with 'hadoop jar ...': A text "
             + "file containing all absolute paths of the input directory "
             + "(parameter -d) is created and the sequence file is created using "
             + "a map/reduce job. The sequence file is direcly stored in HDFS. "
@@ -45,20 +46,23 @@ public class Options {
             + "sequence file (one per directory) in a separate thread. (Optional)";
     public static final String HDFSINPUTPATH_FLG = "p";
     public static final String HDFSINPUTPATH_OPT = "path";
-    public static final String HDFSINPUTPATH_OPT_DESC = "Hadoop map mode: "
+    public static final String HDFSINPUTPATH_OPT_DESC = "Hadoop map mode only: "
             + "HDFS input path where the text files containing input paths is "
             + "available. If this parameter is provided, the -d parameter is "
             + "not required (Optional)";
     public static final String HADOOPJOBNAME_FLG = "n";
     public static final String HADOOPJOBNAME_OPT = "name";
-    public static final String HADOOPJOBNAME_OPT_DESC = "Hadoop map mode: "
+    public static final String HADOOPJOBNAME_OPT_DESC = "Hadoop map mode only: "
             + "Hadoop job name (Optional)";
     public static final String DIR_FLG = "d";
     public static final String DIR_OPT = "dir";
     public static final String DIR_OPT_DESC = "Local directory (or directories - "
             + "commaseparated) containing files to be added. Note "
             + "that in hadoop map mode (parameter -m) each tasktracker must be "
-            + "able to access the files at the same path. (Required)";
+            + "able to access the files at the same path. In batch mode the "
+            + "application will start one thread per directory, the "
+            + "distribution of files in the directories should therefore be "
+            + "balanced. (Required in local mode/Optional in Hadoop map mode)";
     public static final String EXT_FLG_FLG = "e";
     public static final String EXT_FLG_OPT = "ext";
     public static final String EXT_FLG_OPT_DESC = "Extension filter(s) - commaseparated (Optional).";
@@ -72,7 +76,20 @@ public class Options {
             + "text files and each line of the text files should be added as a "
             + "record in the sequence file (Optional).";
     public static final String USAGE = "{hadoop jar|java -jar}"
-            + " target/tb-lsdr-seqfileutility-0.1-SNAPSHOT-jar-with-dependencies.jar";
+            + " target/sequencefile-utility-0.1-SNAPSHOT-jar-with-dependencies.jar\n";
+    public static final String DESCR = "The application is either executed in "
+            + "batch mode starting the process with 'java -jar ...' or with"
+            + "hadoop starting the process with 'hadoop jar ...'.\n"
+            + "Example for local batch processing:\n"
+            + "java -jar target/sequencefile-utility-0.1-SNAPSHOT-jar-with-dependencies.jar -d /path/to/dir\n"
+            + "In this case, the directory /path/to/dir contains the files to"
+            + "be added to the sequence file.\n"
+            + "Example for hadoop processing:\n"
+            + "hadoop jar target/sequencefile-utility-0.1-SNAPSHOT-jar-with-dependencies.jar -m -p /path/to/hdfs/dir\n"
+            + "In this case, the directory /path/to/hdfs/dir contains (a) text file(s)"
+            + "with absolute paths to the files to be added to the sequence file."
+            + "Note that the TaskTracker nodes must be able to read the"
+            + "individual files from the same path.\n";
     // Static for command line option parsing
     public static org.apache.commons.cli.Options OPTIONS = new org.apache.commons.cli.Options();
     // Logger instance
