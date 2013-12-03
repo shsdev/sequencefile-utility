@@ -13,9 +13,9 @@ on all TaskTracker nodes).
 Download
 --------
 
-Version 1.0:
+The executable jar with all dependencies is available on Github:
 
-    http://dl.bintray.com/shsdev/maven/eu/scape_project/tb/sequencefile-utility/1.0/#sequencefile-utility-1.0-jar-with-dependencies.jar
+[sequencefile-utility version 1.0](http://dl.bintray.com/shsdev/maven/eu/scape_project/tb/sequencefile-utility/1.0/#sequencefile-utility-1.0-jar-with-dependencies.jar "sequencefile-utility version 1.0")
 
 Usage
 -----
