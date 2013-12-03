@@ -10,18 +10,12 @@ by traversing a root directory. Or it can be used as a Hadoop job where
 data is collected in the Map task (requires that the file system is mounted 
 on all TaskTracker nodes).
 
-Installation requirements
--------------------------
+Download
+--------
 
-In order to build the application, the Java SE Development Kit (JDK) version 
-1.6.0 (or higher) and Apache Maven 2.2.1 (or higher) are required. 
+Version 1.0:
 
-Installation
-------------
-
-Compile project using maven:
-
-    mvn install
+    http://dl.bintray.com/shsdev/maven/eu/scape_project/tb/sequencefile-utility/1.0/#sequencefile-utility-1.0-jar-with-dependencies.jar
 
 Usage
 -----
@@ -75,3 +69,17 @@ Task Tracker nodes:
 
 The `-p` parameter indicates a HDFS input path where text file(s) are located 
 that contain absolute paths to the files that should be packaged in the SequenceFile.
+
+Installation requirements
+-------------------------
+
+In order to build the application, the Java SE Development Kit (JDK) version 
+1.6.0 (or higher) and Apache Maven 2.2.1 (or higher) are required. 
+
+Installation
+------------
+
+Compile project using maven:
+
+    mvn install
+
