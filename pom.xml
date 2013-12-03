@@ -9,6 +9,14 @@
     <version>1.0</version>
     <name>sequencefile-utility</name>
     
+    <distributionManagement>
+        <repository>
+            <id>bintray-shsdev-maven-sequencefile-utility</id>
+            <name>shsdev-maven-sequencefile-utility</name>
+            <url>https://api.bintray.com/maven/shsdev/maven/sequencefile-utility</url>
+        </repository>
+    </distributionManagement>
+    
     <build>
         <plugins>
             <plugin>

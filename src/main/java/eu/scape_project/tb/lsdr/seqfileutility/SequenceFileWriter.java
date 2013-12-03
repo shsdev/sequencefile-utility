@@ -51,6 +51,7 @@ public final class SequenceFileWriter implements Runnable, Serializable {
     String uri;
     File rootDir;
     File sequenceFile;
+    private static int BUFFER_SIZE = 1024;
 
     public String getSequenceFileName() {
         return pc.getThreadSeqFile();
@@ -104,7 +105,6 @@ public final class SequenceFileWriter implements Runnable, Serializable {
                     traverseDir(new File(dir, child));
                 }
             } else if (!dir.isDirectory()) {
-                if (!dir.getAbsolutePath().contains("abo/abo")) {
                     if (pc.getExtStr() == null || pc.getExtStr().equals("") || dir.getName().endsWith(pc.getExtStr())) {
                         if (pc.isTextlinemode()) {
                             writeTextLines(dir);
@@ -112,7 +112,6 @@ public final class SequenceFileWriter implements Runnable, Serializable {
                             writeFileContent(dir);
                         }
                     }
-                }
             }
         } else {
             logger.error(this.getId() + ": " + "Writer not available");
@@ -142,14 +141,31 @@ public final class SequenceFileWriter implements Runnable, Serializable {
             String filePath = file.getAbsolutePath();
             String keyPath = FilenameUtils.separatorsToUnix(filePath);
             key.set(keyPath);
-            byte[] buffer;
-            buffer = FileUtils.readFileToByteArray(file.getAbsolutePath());
-            BytesWritable value = new BytesWritable(buffer);
+
+            FileInputStream fis = new FileInputStream(file);
+            byte[] byteArray = new byte[(int) fileLength];
+            byte[] buf = new byte[BUFFER_SIZE];
+            int bytesRead = fis.read(buf);
+
+            int offset = 0;
+            int chunk_count = 0;
+            while (bytesRead != -1) {
+                System.arraycopy(
+                        buf, 0,
+                        byteArray, offset,
+                        bytesRead);
+                offset += bytesRead;
+                bytesRead = fis.read(buf);
+                chunk_count++;
+            }
+
+            BytesWritable value = new BytesWritable(byteArray);
             int len = (int) fileLength;
             value.setSize(len);
             filecount++;
             logger.info(this.getId() + ": " + filecount + ":" + key);
             writer.append(key, value);
+            fis.close();
         } else {
             logger.warn("File " + file.getAbsolutePath() + " is too large to be "
                     + "added to a sequence file (skipped).");
